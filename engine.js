@@ -7,8 +7,9 @@ const factorial = {
 			'name': 'multiply'
 		},
 		{
-			'type': 'constant',
-			'value': [1,2,3,4,5]
+			'type': 'function',
+			'name': '..',
+			'args': [1, 100]
 		}
 	]
 };
@@ -19,6 +20,8 @@ const FUNCTIONS = Object.freeze({
 	subtract: (x, y) => x - y,
 	multiply: (x, y) => x * y,
 	divide: (x, y) => x / y,
+	min: (x, y) => Math.min(x, y),
+	max: (x, y) => Math.max(x, y),
 	map: (f, xs) => xs.map(f),
 	foldl: (f, x, xs) => xs.reduce(f, x),
 	foldl1: (f, xs) => xs.reduce(f),
@@ -48,6 +51,8 @@ const FUNCTIONS = Object.freeze({
 	trim: (xs) => xs.trim(),
 	trimLeft: (xs) => xs.trimLeft(),
 	trimRight: (xs) => xs.trimRight(),
+	isTrue: _ => true,
+	isFalse: _ => false,
 	// TODO:
 	// - takeWhile (use generator)
 	// - dropWhile (use generator)
@@ -55,24 +60,23 @@ const FUNCTIONS = Object.freeze({
 	// - scanRight
 });
 
-const TYPES = Object.freeze({
-	'function': Symbol('function'),
-	'reference': Symbol('reference'),
-	'constant': Symbol('constant')
-});
-
 function evaluate(obj) {
-	if (typeof obj !== 'object') {
-		throw new Error(`typeof formula is \`${typeof obj}\` expected \`${typeof {}}\``);
+	if (typeof obj === 'boolean'
+		|| typeof obj === 'number'
+		|| typeof obj === 'string') {
+		return obj;
+	}
+
+	if (typeof obj === 'object' && Array.isArray(obj)) {
+		return obj.map(evaluate);
 	}
 
 	if (obj == null) {
 		return null;
 	}
 
-	const type = TYPES[obj.type];
-	switch (type) {
-		case TYPES.function: {
+	switch (obj.type) {
+		case 'function': {
 			const fname = obj.name;
 			const fref = FUNCTIONS[fname];
 
@@ -97,7 +101,7 @@ function evaluate(obj) {
 			const args = fargs.map(evaluate);
 			return fref(...args);
 		}
-		case TYPES.reference: {
+		case 'reference': {
 			const fname = obj.name;
 			const fref = FUNCTIONS[fname];
 
@@ -125,15 +129,8 @@ function evaluate(obj) {
 			const args = fargs.map(evaluate);
 			return fref.bind(null, ...args);
 		}
-		case TYPES.constant: {
-			if (!('value' in obj)) {
-				throw new Error(`key \`value\` missing from constant object`, obj);
-			}
-			return obj.value;
-			break;
-		}
 		default: {
-			throw new Error(`invalid object type \`${type}\``);
+			return obj;
 		}
 	}
 }
