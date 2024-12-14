@@ -1,15 +1,3 @@
-const factorial = {
-	'type': 'function',
-	'name': 'product',
-	'args': [
-		{
-			'type': 'function',
-			'name': '..',
-			'args': [1, 100]
-		}
-	]
-};
-
 // TODO: validate types of the arguments being applied to the functions
 const FUNCTIONS = Object.freeze({
 	add: (x, y) => x + y,
@@ -154,5 +142,77 @@ function evaluate(obj) {
 	}
 }
 
-const result = evaluate(factorial);
-console.log(result);
+const examples = {
+	// Calculate 100!
+	factorial: {
+		'type': 'function',
+		'name': 'product',
+		'args': [
+			{
+				'type': 'function',
+				'name': '..',
+				'args': [1, 100]
+			}
+		]
+	},
+
+	// Find maximum number in an array
+	maximum: {
+		'type': 'function',
+		'name': 'maximum',
+		'args': [[1, 9, 20, 3, 43, 29, 10, 4]]
+	},
+
+	// Reverse an array
+	reverse: {
+		'type': 'function',
+		'name': 'reverse',
+		'args': [[1, 2, 3, 4, 5]]
+	},
+
+	// Take from array while predicate is true
+	takeWhile: {
+		'type': 'function',
+		'name': 'takeWhile',
+		'args': [
+			{
+				'type': 'reference',
+				'name': '>',
+				'args': [5]
+			},
+			[1, 2, 3, 4, 5, 6, 7, 8, 9]
+		]
+	},
+
+	// Drop from array while predicate is true
+	dropWhile: {
+		'type': 'function',
+		'name': 'dropWhile',
+		'args': [
+			{
+				'type': 'reference',
+				'name': '>',
+				'args': [5]
+			},
+			[9, 8, 7, 6, 5, 4, 3, 2, 1]
+		]
+	},
+
+	// Map a function to each element in an array
+	map: {
+		'type': 'function',
+		'name': 'map',
+		'args': [
+			{
+				'type': 'reference',
+				'name': 'multiply',
+				'args': [2]
+			},
+			[1, 2, 3, 4, 5]
+		]
+	}
+}
+
+Object.entries(examples).forEach(([example_name, example_formula]) => {
+	console.log(example_name, '=>', evaluate(example_formula));
+});
