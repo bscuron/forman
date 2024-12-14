@@ -30,6 +30,11 @@ const FUNCTIONS = Object.freeze({
 	foldl1: (f, xs) => xs.reduce(f),
 	foldr: (f, x, xs) => xs.reduceRight(f, x),
 	foldr1: (f, xs) => xs.reduceRight(f),
+	scanl: (f, x, xs) => xs.reduce((xs, x) => [...xs, f(xs[xs.length - 1], x)], [x]),
+	scanr: (f, xs, x) => xs.reduceRight((xs, x) => {
+		xs.unshift(f(x, xs[0]));
+		return xs;
+	}, [x]),
 	filter: (f, xs) => xs.filter(f),
 	reverse: (xs) => [...xs].reverse(),
 	head: (xs) => xs[0],
@@ -57,8 +62,6 @@ const FUNCTIONS = Object.freeze({
 	// TODO:
 	// - takeWhile (use generator)
 	// - dropWhile (use generator)
-	// - scanLeft
-	// - scanRight
 });
 
 function evaluate(obj) {
