@@ -61,13 +61,14 @@ const FUNCTIONS = Object.freeze({
 });
 
 function evaluate(obj) {
-	if (typeof obj === 'boolean'
-		|| typeof obj === 'number'
-		|| typeof obj === 'string') {
+	const type = typeof obj;
+	if (type === 'boolean'
+		|| type === 'number'
+		|| type === 'string') {
 		return obj;
 	}
 
-	if (typeof obj === 'object' && Array.isArray(obj)) {
+	if (type === 'object' && Array.isArray(obj)) {
 		return obj.map(evaluate);
 	}
 
