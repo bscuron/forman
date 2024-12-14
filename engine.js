@@ -1,11 +1,7 @@
 const factorial = {
 	'type': 'function',
-	'name': 'foldl1',
+	'name': 'product',
 	'args': [
-		{
-			'type': 'reference',
-			'name': 'multiply'
-		},
 		{
 			'type': 'function',
 			'name': '..',
