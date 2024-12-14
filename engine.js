@@ -77,7 +77,9 @@ const FUNCTIONS = Object.freeze({
 			}
 		}
 		return [...dropWhile(xs)];
-	}
+	},
+	isTrue: (x) => !!x,
+	isFalse: (x) => !!!x,
 });
 
 function evaluate(obj) {
