@@ -210,6 +210,23 @@ const examples = {
 			},
 			[1, 2, 3, 4, 5]
 		]
+	},
+
+	// Get the length of things
+	length: {
+		'type': 'function',
+		'name': 'map',
+		'args': [
+			{
+				'type': 'reference',
+				'name': 'length'
+			},
+			[
+				[1, 2, 3, 4, 5],
+				'hello',
+				'banana'
+			]
+		]
 	}
 }
 
