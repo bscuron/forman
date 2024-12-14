@@ -21,7 +21,9 @@ const FUNCTIONS = Object.freeze({
 	multiply: (x, y) => x * y,
 	divide: (x, y) => x / y,
 	min: (x, y) => Math.min(x, y),
+	minimum: (xs) => Math.min(...xs),
 	max: (x, y) => Math.max(x, y),
+	maximum: (xs) => Math.max(...xs),
 	map: (f, xs) => xs.map(f),
 	foldl: (f, x, xs) => xs.reduce(f, x),
 	foldl1: (f, xs) => xs.reduce(f),
@@ -51,8 +53,6 @@ const FUNCTIONS = Object.freeze({
 	trim: (xs) => xs.trim(),
 	trimLeft: (xs) => xs.trimLeft(),
 	trimRight: (xs) => xs.trimRight(),
-	isTrue: _ => true,
-	isFalse: _ => false,
 	// TODO:
 	// - takeWhile (use generator)
 	// - dropWhile (use generator)
