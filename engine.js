@@ -26,6 +26,7 @@ const FUNCTIONS = Object.freeze({
 	maximum: (xs) => Math.max(...xs),
 	map: (f, xs) => xs.map(f),
 	id: (x) => JSON.parse(JSON.stringify(x)),
+	product: (xs) => xs.reduce((a, b) => a * b, 1),
 	foldl: (f, x, xs) => xs.reduce(f, x),
 	foldl1: (f, xs) => xs.reduce(f),
 	foldr: (f, x, xs) => xs.reduceRight(f, x),
@@ -59,9 +60,24 @@ const FUNCTIONS = Object.freeze({
 	trim: (xs) => xs.trim(),
 	trimLeft: (xs) => xs.trimLeft(),
 	trimRight: (xs) => xs.trimRight(),
-	// TODO:
-	// - takeWhile (use generator)
-	// - dropWhile (use generator)
+	takeWhile: (f, xs) => {
+		function* takeWhile(xs) {
+			for (let x of xs) {
+				if (f(x)) yield x;
+				else return;
+			}
+		}
+		return [...takeWhile(xs)];
+	},
+	dropWhile: (f, xs) => {
+		function* dropWhile(xs) {
+			for (let x of xs) {
+				if (!f(x)) yield x;
+				else return;
+			}
+		}
+		return [...dropWhile(xs)];
+	}
 });
 
 function evaluate(obj) {
