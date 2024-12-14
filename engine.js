@@ -25,6 +25,7 @@ const FUNCTIONS = Object.freeze({
 	max: (x, y) => Math.max(x, y),
 	maximum: (xs) => Math.max(...xs),
 	map: (f, xs) => xs.map(f),
+	id: (x) => JSON.parse(JSON.stringify(x)),
 	foldl: (f, x, xs) => xs.reduce(f, x),
 	foldl1: (f, xs) => xs.reduce(f),
 	foldr: (f, x, xs) => xs.reduceRight(f, x),
