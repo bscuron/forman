@@ -21,7 +21,7 @@ const FUNCTIONS = Object.freeze({
 		return xs;
 	}, [x]),
 	filter: (f, xs) => xs.filter(f),
-	reverse: (xs) => [...xs].reverse(),
+	reverse: (xs) => Array.isArray(xs) ? [...xs].reverse() : xs.split('').reverse().join(''),
 	head: (xs) => xs[0],
 	tail: (xs) => xs.slice(1),
 	cons: (x, xs) => [x, ...xs],
@@ -37,6 +37,7 @@ const FUNCTIONS = Object.freeze({
 	'>=': (x, y) => x >= y,
 	'<': (x, y) => x < y,
 	'<=': (x, y) => x <= y,
+	'==': (x, y) => x === y,
 	'!!': (xs, i) => xs[i],
 	'..': (a, b) => Array.from({length: b - a + 1 }, (_, x) => a + x),
 	'++': (xs, ys) => Array.isArray(xs) && Array.isArray(ys) ? xs.concat(ys) : xs + ys,
@@ -261,6 +262,20 @@ const examples = {
 				'name': '++',
 			},
 			['hello', ' ', 'there', ' ', 'world']
+		]
+	},
+
+	// Check if string is palindrome
+	isPalindrome: {
+		'type': 'function',
+		'name': '==',
+		'args': [
+			'saippuakivikauppias',
+			{
+				'type': 'function',
+				'name': 'reverse',
+				'args': ['saippuakivikauppias']
+			}
 		]
 	}
 }
