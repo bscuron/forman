@@ -30,6 +30,7 @@ const FUNCTIONS = Object.freeze({
 	toUpper: (xs) => xs.toUpperCase(),
 	toLower: (xs) => xs.toLower(),
 	every: (f, xs) => xs.every(f),
+	any: (f, xs) => xs.some(f),
 	'&&': (x, y) => x && y,
 	'||': (x, y) => x || y,
 	'!': (x) => !x,
@@ -285,6 +286,19 @@ const examples = {
 		'type': 'function',
 		'name': 'nub',
 		'args': [[1, 2, 1, 3, 9, 3]]
+	},
+
+	// Return true if any element in the argument array satisfies the predicate argument
+	any: {
+		'type': 'function',
+		'name': 'any',
+		'args': [
+			{
+				'type': 'reference',
+				'name': 'isTrue'
+			},
+			[false, false, true]
+		]
 	}
 }
 
