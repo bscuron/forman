@@ -66,6 +66,7 @@ const FUNCTIONS = Object.freeze({
 	},
 	isTrue: (x) => !!x,
 	isFalse: (x) => !!!x,
+	nub: (xs) => [...new Set(xs)],
 });
 
 function evaluate(obj) {
@@ -277,6 +278,13 @@ const examples = {
 				'args': ['saippuakivikauppias']
 			}
 		]
+	},
+
+	// Remove duplicates from an array
+	nub: {
+		'type': 'function',
+		'name': 'nub',
+		'args': [[1, 2, 1, 3, 9, 3]]
 	}
 }
 
