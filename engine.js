@@ -39,6 +39,7 @@ const FUNCTIONS = Object.freeze({
 	'<=': (x, y) => x <= y,
 	'!!': (xs, i) => xs[i],
 	'..': (a, b) => Array.from({length: b - a + 1 }, (_, x) => a + x),
+	'++': (xs, ys) => Array.isArray(xs) && Array.isArray(ys) ? xs.concat(ys) : xs + ys,
 	elemIndex: (xs, i) => xs.find(i),
 	take: (xs, n) => xs.slice(0, n),
 	trim: (xs) => xs.trim(),
@@ -234,6 +235,33 @@ const examples = {
 		'type': 'reference',
 		'name': 'add',
 		'args': [5]
+	},
+
+	// Concat arrays
+	concat_arrays: {
+		'type': 'function',
+		'name': '++',
+		'args': [[1, 2, 3], [4, 5, 6]]
+	},
+
+	// Concat strings
+	concat_strings: {
+		'type': 'function',
+		'name': '++',
+		'args': ['hello', ' world']
+	},
+
+	// Concat multiple strings
+	concat_multiple_strings: {
+		'type': 'function',
+		'name': 'foldl1',
+		'args': [
+			{
+				'type': 'reference',
+				'name': '++',
+			},
+			['hello', ' ', 'there', ' ', 'world']
+		]
 	}
 }
 
