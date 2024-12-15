@@ -227,6 +227,13 @@ const examples = {
 				'banana'
 			]
 		]
+	},
+
+	// Partially applied function
+	add5: {
+		'type': 'reference',
+		'name': 'add',
+		'args': [5]
 	}
 }
 
