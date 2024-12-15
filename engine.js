@@ -68,6 +68,12 @@ const FUNCTIONS = Object.freeze({
 	isTrue: (x) => !!x,
 	isFalse: (x) => !!!x,
 	nub: (xs) => [...new Set(xs)],
+	rand: (min, max) => Math.random() * (max - min) + min,
+	randInt: (min, max) => {
+		min = Math.ceil(min);
+		max = Math.floor(max);
+		return Math.floor(Math.random() * (max - min)) + min;
+	},
 });
 
 function evaluate(obj) {
@@ -130,9 +136,6 @@ function evaluate(obj) {
 			}
 
 			const farity = fref.length;
-			if (fargs.length === farity) {
-				throw new Error(`function \`${fname}\` has been fully applied, \`${fargs.length}\` argument(s) received. Change \`type\` to 'function' if not partially applying the function.`, obj);
-			}
 			if (fargs.length > farity) {
 				throw new Error(`function \`${fname}\` expects \`${farity}\` argument(s), received \`${fargs.length}\` while partially applying arguments`, obj);
 			}
@@ -298,6 +301,42 @@ const examples = {
 				'name': 'isTrue'
 			},
 			[false, false, true]
+		]
+	},
+
+	// Generate 10 random values 0-<10
+	rand: {
+		'type': 'function',
+		'name': 'map',
+		'args': [
+			{
+				'type': 'reference',
+				'name': 'rand',
+				'args': [0, 10]
+			},
+			{
+				'type': 'function',
+				'name': '..',
+				'args': [1, 10]
+			}
+		]
+	},
+
+	// Generate 10 random integers 0-<10
+	randInt: {
+		'type': 'function',
+		'name': 'map',
+		'args': [
+			{
+				'type': 'reference',
+				'name': 'randInt',
+				'args': [0, 10]
+			},
+			{
+				'type': 'function',
+				'name': '..',
+				'args': [1, 10]
+			}
 		]
 	}
 }
