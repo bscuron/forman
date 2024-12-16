@@ -74,6 +74,7 @@ const FUNCTIONS = Object.freeze({
 		max = Math.floor(max);
 		return Math.floor(Math.random() * (max - min)) + min;
 	},
+	bool: (b, x, y) => b ? x : y
 });
 
 function evaluate(obj) {
@@ -337,6 +338,28 @@ const examples = {
 				'name': '..',
 				'args': [1, 10]
 			}
+		]
+	},
+
+	// Ternary to check if a string is empty or not
+	bool: {
+		'type': 'function',
+		'name': 'bool',
+		'args': [
+			{
+				'type': 'function',
+				'name': '>',
+				'args': [
+					{
+						'type': 'function',
+						'name': 'length',
+						'args': ['hello']
+					},
+					0
+				],
+			},
+				'Not empty',
+				'Empty'
 		]
 	}
 }
